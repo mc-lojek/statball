@@ -56,6 +56,8 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(libs.mockk)  // for MockK (or 1.x for your version)
+            implementation(libs.kotlinx.coroutines.test)  // for coroutine test
         }
     }
 }
@@ -73,4 +75,8 @@ android {
 }
 dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.savedstate)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.jupiter)
 }

@@ -25,7 +25,7 @@ import pl.mclojek.statball.model.FootballScorersResponse
 import pl.mclojek.statball.model.FootballStandingsResponse
 import pl.mclojek.statball.model.FootballTeam
 
-class KtorClient {
+open class KtorClient {
 
     fun getClient(): HttpClient {
         return HttpClient() {
@@ -53,46 +53,46 @@ class KtorClient {
         }
     }
 
-    suspend fun getCompetitions(): CompetitionsResponse {
+    open suspend fun getCompetitions(): CompetitionsResponse {
         return getClient().get("/v4/competitions").body()
     }
 
-    suspend fun getStandings(code: String): FootballStandingsResponse {
+    open suspend fun getStandings(code: String): FootballStandingsResponse {
         return getClient().get("/v4/competitions/${code}/standings")
             .also { println(it.bodyAsText()) }
             .also { println(it.request.headers) }
             .body()
     }
 
-    suspend fun getScorers(code: String): FootballScorersResponse {
+    open suspend fun getScorers(code: String): FootballScorersResponse {
         return getClient().get("/v4/competitions/${code}/scorers")
             .also { println(it.bodyAsText()) }
             .also { println(it.request.headers) }
             .body()
     }
 
-    suspend fun getMatches(code: String): FootballMatchesResponse {
+    open suspend fun getMatches(code: String): FootballMatchesResponse {
         return getClient().get("/v4/competitions/${code}/matches")
             .also { println(it.bodyAsText()) }
             .also { println(it.request.headers) }
             .body()
     }
 
-    suspend fun getMatch(id: Int): FootballMatch {
+    open suspend fun getMatch(id: Int): FootballMatch {
         return getClient().get("/v4/matches/${id}")
             .also { println(it.bodyAsText()) }
             .also { println(it.request.headers) }
             .body()
     }
 
-    suspend fun getTeam(id: Int): FootballTeam {
+    open suspend fun getTeam(id: Int): FootballTeam {
         return getClient().get("/v4/teams/${id}")
             .also { println(it.bodyAsText()) }
             .also { println(it.request.headers) }
             .body()
     }
 
-    suspend fun getTeamMatches(id: Int): FootballMatchResponse {
+    open suspend fun getTeamMatches(id: Int): FootballMatchResponse {
         return getClient().get("/v4/teams/${id}/matches")
             .also { println(it.bodyAsText()) }
             .also { println(it.request.headers) }
