@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import pl.mclojek.statball.model.FootballMatchResponse
+import subscribe
 
 class TeamMatchesViewModel(
     private val teamId: Int,
@@ -25,7 +26,13 @@ class TeamMatchesViewModel(
         _uiState.update { it.copy(teamMatches = result) }
     }
 
-    data class TeamMatchesUiState(
-        val teamMatches: FootballMatchResponse? = null,
-    )
+    fun subscribeToUiState(onEach: (TeamMatchesUiState) -> Unit) {
+        uiState.subscribe(onEach = onEach)
+    }
+}
+
+data class TeamMatchesUiState(
+    val teamMatches: FootballMatchResponse? = null,
+) {
+    constructor() : this(null)
 }

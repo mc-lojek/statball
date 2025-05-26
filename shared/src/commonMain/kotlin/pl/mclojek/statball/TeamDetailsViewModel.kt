@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import pl.mclojek.statball.model.FootballTeam
 import pl.mclojek.statball.model.Team
 import pl.mclojek.statball.model.TeamStanding
+import subscribe
 
 class TeamDetailsViewModel(
     private val teamId: Int,
@@ -27,7 +28,13 @@ class TeamDetailsViewModel(
         _uiState.update { it.copy(teamDetails = result) }
     }
 
-    data class TeamDetailsUiState(
-        val teamDetails: FootballTeam? = null,
-    )
+    fun subscribeToUiState(onEach: (TeamDetailsUiState) -> Unit) {
+        uiState.subscribe(onEach = onEach)
+    }
+}
+
+data class TeamDetailsUiState(
+    val teamDetails: FootballTeam? = null,
+) {
+    constructor() : this(null)
 }

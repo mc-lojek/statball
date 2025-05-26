@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import pl.mclojek.statball.model.Scorer
+import subscribe
 
 class TopScorersViewModel(
     private val code: String,
@@ -25,7 +26,13 @@ class TopScorersViewModel(
         _uiState.update { it.copy(scorers = result.scorers) }
     }
 
-    data class ScorersUiState(
-        val scorers: List<Scorer> = emptyList()
-    )
+    fun subscribeToUiState(onEach: (ScorersUiState) -> Unit) {
+        uiState.subscribe(onEach = onEach)
+    }
+}
+
+data class ScorersUiState(
+    val scorers: List<Scorer> = emptyList()
+) {
+    constructor() : this(emptyList())
 }

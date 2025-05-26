@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import pl.mclojek.statball.model.TeamStanding
+import subscribe
 
 class StandingsViewModel(
     private val code: String,
@@ -25,7 +26,13 @@ class StandingsViewModel(
         _uiState.update { it.copy(standings = result.standings.flatMap { it.table }) }
     }
 
-    data class StandingsUiState(
-        val standings: List<TeamStanding> = emptyList()
-    )
+    fun subscribeToUiState(onEach: (StandingsUiState) -> Unit) {
+        uiState.subscribe(onEach = onEach)
+    }
+}
+
+data class StandingsUiState(
+    val standings: List<TeamStanding> = emptyList()
+) {
+    constructor() : this(emptyList())
 }

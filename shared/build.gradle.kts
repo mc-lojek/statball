@@ -1,4 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -16,6 +18,8 @@ kotlin {
             }
         }
     }
+
+    val xcf = XCFramework()
     
     listOf(
         iosX64(),
@@ -25,6 +29,7 @@ kotlin {
         it.binaries.framework {
             baseName = "shared"
             isStatic = true
+            xcf.add(this)
         }
     }
 
@@ -41,6 +46,8 @@ kotlin {
 
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.androidx.lifecycle.viewmodel)
+
+            implementation(libs.ktor.client.cio)
         }
 
         iosMain.dependencies {
